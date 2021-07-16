@@ -1,11 +1,11 @@
 <template>
   <div>
-    kek
+    kekkekeke
   </div>
 </template>
 
 <script>
 export default {
-  // layout: 'default',
+  layout: 'default',
 }
 </script>
