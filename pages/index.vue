@@ -1,7 +1,11 @@
 <template>
-  <Tutorial/>
+  <div>
+    kek
+  </div>
 </template>
 
 <script>
-export default {}
+export default {
+  // layout: 'default',
+}
 </script>
