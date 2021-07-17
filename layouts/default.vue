@@ -22,9 +22,9 @@
         </span>
       </button>
     </header>
-    <div :class="$style.content">
+    <main :class="$style.content">
       <Nuxt />
-    </div>
+    </main>
   </div>
 </template>
 
@@ -44,6 +44,7 @@ export default {
 $header-height: 4rem;
 
 .root {
+  height: 100%;
   min-height: 100vh;
 }
 
@@ -62,6 +63,7 @@ $header-height: 4rem;
 }
 
 .content {
+  height: 100%;
   min-height: inherit;
   padding: calc(#{$header-height} + 2rem) $page-left-right-padding 2rem;
 }

@@ -1,8 +1,16 @@
 <template>
-  <div :class="$style.root">
-    <h1 :class="$style.title">
-      Каталог
-    </h1>
+  <section :class="$style.root">
+    <header :class="$style.header">
+      <h1 :class="$style.title">
+        Каталог
+      </h1>
+      <sorter
+        :options="sortOptions"
+        :selected="selectedSortType"
+        :class="$style.sorter"
+        @select="selectedSortType = $event"
+      />
+    </header>
     <main :class="$style.content">
       <ul :class="['list-clear', $style.categoriesList]">
         <li
@@ -18,15 +26,21 @@
           </NuxtLink>
         </li>
       </ul>
-      <NuxtChild @selected:category="checkSelectedCategory" />
+      <NuxtChild
+        sort-type='ByPrice'
+        @selected:category="checkSelectedCategory"
+      />
     </main>
-  </div>
+  </section>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { sortTypes, SortTypeValuesEnum, SortTypeEnum } from '@/assets/js/constants'
+import Sorter from '@/components/Sorter.vue'
 
 export default {
+  components: { Sorter },
   asyncData({ store, error }) {
     try {
       store.dispatch('categories/loadCategories')
@@ -39,7 +53,17 @@ export default {
   },
   data() {
     return {
-
+      sortOptions: [
+        {
+          key: SortTypeEnum.ByPrice,
+          label: 'цене',
+        },
+        {
+          key: SortTypeEnum.ByRating,
+          label: 'популярности',
+        },
+      ],
+      selectedSortType: SortTypeEnum.ByPrice,
     }
   },
   computed: {
@@ -63,13 +87,30 @@ export default {
 <style lang="scss" module>
 :global { @import '@/assets/styles/classes.scss'; }
 
+.root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
 .title {
   margin-top: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
   color: $text-color;
   font-family: $PT-Sans;
   font-size: 2rem;
   line-height: 1.3;
+}
+
+.sorter {
+  margin-left: 1rem;
 }
 
 .content {
