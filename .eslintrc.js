@@ -23,6 +23,8 @@ module.exports = {
     camelcase: ['off'],
     'no-console': ['error', { allow: ['warn', 'error'] }],
     semi: ['error', 'never'],
+    'no-param-reassign': ['error', { props: false }],
+    'no-shadow': ['error', { allow: ['state'] }],
   },
   settings: {
     'import/resolver': {
