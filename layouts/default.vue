@@ -99,7 +99,7 @@ $header-height: 4rem;
   color: #FFF;
   font-family: $PT-Sans;
   font-size: 8px;
-  line-height: 12px;
+  line-height: 1;
   font-weight: 700;
   text-align: center;
 }
