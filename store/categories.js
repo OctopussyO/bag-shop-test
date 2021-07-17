@@ -5,7 +5,7 @@ export const state = () => ({
 })
 
 export const getters = {
-  getCategories: () => state.categories,
+  getCategories: (state) => state.categories,
 }
 
 export const mutations = {
@@ -16,7 +16,7 @@ export const mutations = {
 
 export const actions = {
   loadCategories({ commit }) {
-    getCategories(this)
+    return getCategories(this)
       .then((data) => commit('updateCategories', data))
   },
 }

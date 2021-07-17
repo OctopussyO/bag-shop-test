@@ -1,6 +1,6 @@
 <template>
   <div>
-    opa
+    opa {{ categoryId }}
   </div>
 </template>
 
@@ -8,6 +8,7 @@
 import { getProductList } from '@/assets/js/api'
 
 export default {
+  emits: ['selected:category'],
   async asyncData(ctx) {
     const { route, error } = ctx
     const id = route.params?.id
@@ -32,6 +33,7 @@ export default {
     }
   },
   mounted() {
+    this.$emit('selected:category', this.categoryId)
     console.log(this.categoryId, this.productList)
   },
 }
