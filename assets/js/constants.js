@@ -11,3 +11,5 @@ export const SortTypeValuesEnum = {
 }
 
 export const SortTypes = values(SortTypeEnum)
+
+export const BaseUrl = 'https://front-test.idalite.com'

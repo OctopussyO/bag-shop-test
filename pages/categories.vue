@@ -27,7 +27,7 @@
         </li>
       </ul>
       <NuxtChild
-        sort-type='ByPrice'
+        :sort-type="selectedSortType"
         @selected:category="checkSelectedCategory"
       />
     </main>

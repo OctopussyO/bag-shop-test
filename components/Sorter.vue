@@ -136,6 +136,7 @@ export default {
   background-color: #fff;
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.05);
   overflow: hidden;
+  z-index: 5;
 }
 
 .optionItem {

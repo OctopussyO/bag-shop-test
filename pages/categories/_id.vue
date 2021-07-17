@@ -1,6 +1,10 @@
 <template>
-  <div>
-    opa {{ categoryId }}
+  <div :class="$style.root">
+    <product-card
+      v-for="item in sortedProductsList"
+      :key="item.id"
+      :data="item"
+    />
   </div>
 </template>
 
@@ -8,8 +12,10 @@
 import { sortBy, some } from 'lodash'
 import { getProductList } from '@/assets/js/api'
 import { SortTypeEnum, SortTypes } from '@/assets/js/constants'
+import ProductCard from '../../components/ProductCard.vue'
 
 export default {
+  components: { ProductCard },
   props: {
     sortType: {
       type: [String, null],
@@ -64,6 +70,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="scss" module>
+.root {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 1rem;
+}
 </style>
