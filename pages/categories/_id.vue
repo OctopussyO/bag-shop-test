@@ -58,7 +58,7 @@ export default {
         case SortTypeEnum.ByPrice:
           return sortBy(this.productList, ['price'])
         case SortTypeEnum.ByRating:
-          return sortBy(this.productList, ['rating'])
+          return [...this.productList].sort((a, b) => b.rating - a.rating)
         default:
           return this.productList
       }

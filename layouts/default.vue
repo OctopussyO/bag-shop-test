@@ -79,6 +79,7 @@ $header-height: 4rem;
 
 .cartButton {
   position: relative;
+  margin-right: 1rem;
   color: $text-color;
   @include transition;
 
