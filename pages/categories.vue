@@ -36,7 +36,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import { sortTypes, SortTypeValuesEnum, SortTypeEnum } from '@/assets/js/constants'
+import { SortTypeEnum } from '@/assets/js/constants'
 import Sorter from '@/components/Sorter.vue'
 
 export default {
