@@ -1,21 +1,28 @@
 <template>
   <div :class="$style.root">
-    <product-card
-      v-for="item in sortedProductsList"
-      :key="item.id"
-      :data="item"
-    />
+    <div :class="$style.cardList">
+      <product-card
+        v-for="item in sortedProductsList"
+        :key="item.id"
+        :data="item"
+        :in-cart="isInCart(item.id)"
+        @click:add="addItemToCart(item)"
+        @click:delete="removeItemFromCart(item)"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import { sortBy, some } from 'lodash'
+import ProductCard from '@/components/ProductCard.vue'
+import cart from '@/components/mixins/cart.mixin'
 import { getProductList } from '@/assets/js/api'
 import { SortTypeEnum, SortTypes } from '@/assets/js/constants'
-import ProductCard from '../../components/ProductCard.vue'
 
 export default {
   components: { ProductCard },
+  mixins: [cart],
   props: {
     sortType: {
       type: [String, null],
@@ -72,6 +79,15 @@ export default {
 
 <style lang="scss" module>
 .root {
+  display: flex;
+  width: 100%;
+  max-height: 75vh;
+  overflow-y: auto;
+  @include app-scrollbar;
+}
+
+.cardList {
+  flex-grow: 1;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));

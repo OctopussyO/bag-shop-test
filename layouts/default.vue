@@ -18,23 +18,48 @@
         <span
           :class="$style.cartCounter"
         >
-          1
+          {{ cartQuantity }}
         </span>
       </button>
     </header>
     <main :class="$style.content">
       <Nuxt />
     </main>
+    <cart-modal
+      v-show="isCartOpen"
+      ref="cartModal"
+      v-model="isCartOpen"
+      :data="cartItems"
+      @remove-item="removeItem"
+    />
   </div>
 </template>
 
 <script>
-export default {
-  methods: {
-    showCart () {
+import CartModal from '@/components/CartModal.vue'
+import cart from '@/components/mixins/cart.mixin'
 
+export default {
+  components: { CartModal },
+  mixins: [cart],
+  data() {
+    return {
+      isCartOpen: false,
+    }
+  },
+  computed: {
+    cartQuantity() {
+      return this.cartItems?.length || 0
     },
-  }
+  },
+  created() {
+    this.loadCart()
+  },
+  methods: {
+    showCart() {
+      this.isCartOpen = true
+    },
+  },
 }
 </script>
 
@@ -60,12 +85,13 @@ $header-height: 4rem;
   padding: 1.25rem $page-left-right-padding;
   background-color: #FFF;
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.05);
+  z-index: 5;
 }
 
 .content {
   height: 100%;
   min-height: inherit;
-  padding: calc(#{$header-height} + 2rem) $page-left-right-padding 2rem;
+  padding: calc(#{$header-height} + 2rem) $page-left-right-padding 1rem;
 }
 
 .logoLink {

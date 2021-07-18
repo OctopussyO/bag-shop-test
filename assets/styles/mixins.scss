@@ -7,3 +7,81 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+@mixin app-scrollbar {
+  // firefox
+  scrollbar-width: thin;
+  scrollbar-color: rgba(gray, .6) rgba(gray, .25);
+
+  // webkit
+  @media (hover: hover) {
+    &:hover {
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(gray, .6);
+      }
+    }
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgba(gray, .25);
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(gray, .4);
+    display: block;
+    min-height: 60px;
+    min-width: 60px;
+    border-radius: 3px;
+    background-clip: content-box;
+    border: 1px solid transparent;
+    @include transition();
+
+    &:vertical {
+      border-top-width: 0;
+      border-bottom-width: 0;
+    }
+
+    &:horizontal {
+      border-left-width: 0;
+      border-right-width: 0;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: rgba(gray, 1);
+
+        &:vertical {
+          border-left-width: 0;
+          border-right-width: 0;
+        }
+
+        &:horizontal {
+          border-top-width: 0;
+          border-bottom-width: 0;
+        }
+      }
+    }
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  &::-webkit-scrollbar-track-piece:start {
+    display: none;
+  }
+
+  &::-webkit-scrollbar-corner {
+    display: none;
+  }
+
+  &::-webkit-resizer {
+    display: none;
+  }
+}

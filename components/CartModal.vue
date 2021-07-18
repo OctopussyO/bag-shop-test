@@ -1,0 +1,204 @@
+<template>
+  <div :class="$style.cartRoot">
+    <div :class="$style.cart">
+      <div :class="$style.header">
+        <h2 :class="$style.title">
+          Корзина
+        </h2>
+        <button
+          :class="[$style.closeBtn, 'button-clear']"
+          @click="close"
+        >
+          <svg-icon
+            name="close"
+            :class="$style.icon"
+          />
+        </button>
+      </div>
+      <template v-if="formSent">
+        YYYEAH
+      </template>
+      <template v-else>
+        <template v-if="data && data.length">
+          <h3 :class="$style.subtitle">
+            Товары в корзине
+          </h3>
+          <div :class="$style.cardList">
+            <product-card
+              v-for="(item, i) in data"
+              :key="item.id + i"
+              :data="item"
+              minimized
+              in-cart
+              :class="$style.card"
+              @click:delete="$emit('remove-item', item)"
+            />
+          </div>
+        </template>
+        <template v-else>
+          <p :class="$style.paragraph">
+            Пока что вы ничего не добавили в корзину.
+          </p>
+          <button
+            :class="[$style.submitBtn]"
+            @click="close"
+          >
+            Перейти к выбору
+          </button>
+        </template>
+      </template>
+    </div>
+  </div>
+</template>
+
+<script>
+import ProductCard from '@/components/ProductCard.vue'
+
+export default {
+  components: { ProductCard },
+  props: {
+    value: {
+      type: Boolean,
+      default: false,
+    },
+    data: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  emits: ['input', 'close', 'remove-item'],
+  data() {
+    return {
+      categoryId: null,
+      productList: [],
+      formSent: false,
+    }
+  },
+  computed: {
+    visibility: {
+      get() {
+        return this.value
+      },
+      set(val) {
+        this.$emit('input', val)
+      },
+    },
+  },
+  methods: {
+    close() {
+      this.$emit('close')
+      this.visibility = false
+      this.formSent = false
+    },
+  },
+}
+</script>
+
+<style lang="scss" module>
+:global { @import '@/assets/styles/classes.scss'; }
+
+.cartRoot {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #FFFFFFCC;
+  z-index: 10;
+}
+
+.cart {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 30vw;
+  min-width: 26rem;
+  max-width: 30rem;
+  padding: 3.25rem 3rem;
+  background-color: #fff;
+  border-radius: 8px 0px 0px 8px;
+  box-shadow: -4px 0px 16px rgba(0, 0, 0, 0.05);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: $text-color;
+  font-family: $PT-Sans;
+  font-size: 2rem;
+  line-height: 1.3;
+}
+
+.subtitle {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: $text-color;
+  font-family: $PT-Sans;
+  font-weight: 400;
+}
+
+.closeBtn {
+  padding: .4rem;
+}
+
+.icon {
+  width: .9rem;
+  height: .9rem;
+}
+
+.cardList {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  overflow-y: auto;
+  @include app-scrollbar;
+}
+
+.card {
+  margin-bottom: 0.75rem;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.submitBtn {
+  width: 100%;
+  padding: .9rem;
+  margin-top: 1.5rem;
+  background-color: $text-color;
+  border-radius: .5rem;
+  border: none;
+  outline: none;
+  color: #FFF;
+  font-family: $PT-Sans;
+  font-size: 1rem;
+  line-height: 1.25;
+  cursor: pointer;
+  @include transition;
+
+  &:hover {
+    background-color: $surface-dark-color;
+  }
+}
+
+.paragraph {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: $text-color;
+  font-family: $PT-Sans;
+  font-size: 1.35rem;
+  line-height: 1.3;
+}
+</style>

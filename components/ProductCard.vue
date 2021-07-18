@@ -1,5 +1,10 @@
 <template>
-  <div :class="$style.card">
+  <div
+    :class="[$style.card, {
+      [$style.normal]: !minimized,
+      [$style.minimized]: minimized,
+    }]"
+  >
     <star-rating
       :checked="ratingClicked"
       :value="rating"
@@ -8,9 +13,15 @@
     />
     <button
       :class="[$style.cartBtn, 'button-clear']"
-      @click="$emit('click:delete')"
+      @click="$emit(inCart ? 'click:delete' : 'click:add')"
     >
       <svg-icon
+        v-if="inCart"
+        name="trash"
+        :class="$style.icon"
+      />
+      <svg-icon
+        v-else
         name="cart"
         :class="$style.icon"
       />
@@ -23,8 +34,8 @@
     <h3 :class="[$style.text, $style.title]">
       {{ name }}
     </h3>
-    <p :class="[$style.text, $style.accentedText, $style.paragraph]">
-      {{ price }}&nbsp;&#8381;
+    <p :class="[$style.text, $style.accentedText, $style.paragraph, $style.price]">
+      {{ price }}
     </p>
   </div>
 </template>
@@ -42,6 +53,14 @@ export default {
       validator() { // TODO -- validate fields
         return true
       },
+    },
+    minimized: {
+      type: Boolean,
+      default: false,
+    },
+    inCart: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: ['click:delete'],
@@ -78,13 +97,7 @@ $button-padding: .25rem;
 
 .card {
   position: relative;
-  // display: flex;
-  // flex-direction: column;
   width: 100%;
-  min-width: 16rem;
-  max-width: 18rem;
-  // height: 18rem; // TODO
-  padding: $padding;
   border-radius: .5rem;
   background-color: #FFF;
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.05);
@@ -92,11 +105,7 @@ $button-padding: .25rem;
 
 .cartBtn {
   padding: .25rem;
-  position: absolute;
-  top: calc(#{$padding} - #{$button-padding});
-  right: calc(#{$padding} - #{$button-padding});
   color: $surface-light-color;
-  z-index: 2;
   @include transition;
 
   &:hover {
@@ -104,21 +113,8 @@ $button-padding: .25rem;
   }
 }
 
-.rating {
-  position: absolute;
-  top: $padding;
-  left: $padding;
-  z-index: 2;
-}
-
 .image {
   display: block;
-  width: 9rem;
-  height: 11.25rem;
-  margin: 0 auto;
-  object-fit: cover;
-  object-position: center 10px; // just for beauty
-  transform: scale(1.2); // just for beauty
 }
 
 .icon {
@@ -127,11 +123,8 @@ $button-padding: .25rem;
 }
 
 .title {
-  margin-top: 1rem;
-  margin-bottom: 0.4rem;
   font-weight: 400;
   text-transform: capitalize;
-  @include overflow-ellipsise;
 }
 
 .text {
@@ -150,4 +143,90 @@ $button-padding: .25rem;
   margin-top: 0;
   margin-bottom: 0;
 }
+
+.normal {
+  min-width: 16rem;
+  max-width: 18rem;
+  padding: $padding;
+
+  .cartBtn {
+    position: absolute;
+    top: calc(#{$padding} - #{$button-padding});
+    right: calc(#{$padding} - #{$button-padding});
+    z-index: 2;
+  }
+
+  .rating {
+    position: absolute;
+    top: $padding;
+    left: $padding;
+    z-index: 2;
+  }
+
+  .image {
+    width: 9rem;
+    height: 11.25rem;
+    margin: 0 auto;
+    object-fit: cover;
+    object-position: center 10px; // just for beauty
+    transform: scale(1.2); // just for beauty
+  }
+
+  .title {
+    margin-top: 1rem;
+    margin-bottom: 0.4rem;
+    @include overflow-ellipsise;
+  }
+}
+
+.minimized {
+  max-height: 7.5rem;
+  padding: 1rem 1.5rem;
+  display: grid;
+  grid-template-columns: min-content 1fr min-content;
+  grid-template-rows: min-content 1fr min-content;
+  grid-template-areas:  'image name   btn'
+                        'image price  btn'
+                        'image rating btn';
+  gap: .4rem 2rem;
+
+  .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .image {
+    grid-area: image;
+    width: 4.4rem;
+    height: 5.6rem;
+    margin: 0 auto;
+    object-fit: cover;
+    object-position: center 10px; // just for beauty
+    transform: scale(1.2); // just for beauty
+  }
+
+  .title {
+    grid-area: name;
+    max-height: 2.4rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .price {
+    grid-area: price;
+  }
+
+  .rating {
+    grid-area: rating;
+  }
+
+  .cartBtn {
+    grid-area: btn;
+  }
+}
+
 </style>
