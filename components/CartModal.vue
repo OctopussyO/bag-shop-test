@@ -34,17 +34,15 @@
               @click:delete="$emit('remove-item', item)"
             />
           </div>
+          <order-form />
         </template>
         <template v-else>
           <p :class="$style.paragraph">
             Пока что вы ничего не добавили в корзину.
           </p>
-          <button
-            :class="[$style.submitBtn]"
-            @click="close"
-          >
+          <custom-button @click="close">
             Перейти к выбору
-          </button>
+          </custom-button>
         </template>
       </template>
     </div>
@@ -52,10 +50,16 @@
 </template>
 
 <script>
+import CustomButton from '@/components/CustomButton.vue'
+import OrderForm from '@/components/OrderForm.vue'
 import ProductCard from '@/components/ProductCard.vue'
 
 export default {
-  components: { ProductCard },
+  components: {
+    CustomButton,
+    OrderForm,
+    ProductCard,
+  },
   props: {
     value: {
       type: Boolean,
@@ -173,25 +177,25 @@ export default {
   }
 }
 
-.submitBtn {
-  width: 100%;
-  padding: .9rem;
-  margin-top: 1.5rem;
-  background-color: $text-color;
-  border-radius: .5rem;
-  border: none;
-  outline: none;
-  color: #FFF;
-  font-family: $PT-Sans;
-  font-size: 1rem;
-  line-height: 1.25;
-  cursor: pointer;
-  @include transition;
+// .submitBtn {
+//   width: 100%;
+//   padding: .9rem;
+//   margin-top: 1.5rem;
+//   background-color: $text-color;
+//   border-radius: .5rem;
+//   border: none;
+//   outline: none;
+//   color: #FFF;
+//   font-family: $PT-Sans;
+//   font-size: 1rem;
+//   line-height: 1.25;
+//   cursor: pointer;
+//   @include transition;
 
-  &:hover {
-    background-color: $surface-dark-color;
-  }
-}
+//   &:hover {
+//     background-color: $surface-dark-color;
+//   }
+// }
 
 .paragraph {
   margin-top: 0;
