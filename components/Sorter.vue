@@ -89,8 +89,8 @@ export default {
       this.isListShown = !this.isListShown
     },
     handleClickOutside(e) {
-      if (this.isListShown && !this.$refs.sorterRoot.contains(e.target)) {
-        this.toggleDropdown()
+      if (this.isListShown && !this.$refs.sorterRoot?.contains(e.target)) {
+        this.toggleList()
       }
     },
     setSelected(key) {
