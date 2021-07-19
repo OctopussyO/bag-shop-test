@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { sortBy, some } from 'lodash'
+import { some } from 'lodash'
 import ProductCard from '@/components/ProductCard.vue'
 import cart from '@/components/mixins/cart.mixin'
 import { getProductList } from '@/assets/js/api'
@@ -41,7 +41,9 @@ export default {
     const id = route.params?.id
     let productList
     try {
-      productList = await getProductList(ctx, { categoryIds: [id] })
+      if (id) {
+        productList = await getProductList(ctx, { categoryIds: [id] })
+      }
     } catch (err) {
       error({
         statusCode: 404,
@@ -63,7 +65,7 @@ export default {
     sortedProductsList() {
       switch (this.sortType) {
         case SortTypeEnum.ByPrice:
-          return sortBy(this.productList, ['price'])
+          return [...this.productList].sort((a, b) => a.price - b.price)
         case SortTypeEnum.ByRating:
           return [...this.productList].sort((a, b) => b.rating - a.rating)
         default:
