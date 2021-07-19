@@ -41,6 +41,27 @@ import Sorter from '@/components/Sorter.vue'
 
 export default {
   components: { Sorter },
+  async asyncData({
+    store, route, router, error,
+  }) {
+    try {
+      console.log('kkek')
+      await store.dispatch('categories/loadCategories')
+      // if (!route.params?.id) {
+      //   const startId = store.getters['categories/getCategories']?.[0].id
+      //   console.log('1', startId)
+      //   if (!(startId && startId === 0)) {
+      //     console.log('2')
+      //     router.push(`/categories/${startId}`)
+      //   }
+      // }
+    } catch (err) {
+      error({
+        statusCode: 404,
+        message: 'Page was not found',
+      })
+    }
+  },
   data() {
     return {
       sortOptions: [
@@ -62,7 +83,11 @@ export default {
     }),
   },
   methods: {
+    ...mapActions({
+      loadCategories: 'categories/loadCategories',
+    }),
     checkSelectedCategory(id) {
+      console.log('check', id)
       if (!(id || id === 0)) {
         this.$router.push(`/categories/${this.categoriesList[0].id}`)
       }
