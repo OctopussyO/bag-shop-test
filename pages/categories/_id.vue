@@ -43,16 +43,21 @@ export default {
     let productList
     let id = route.params?.id
     try {
+      console.log('1', id)
+      await store.dispatch('categories/loadCategories')
       if (!(id || id === 0)) {
-        await store.dispatch('categories/loadCategories')
+        console.log('2', id)
         id = store.getters['categories/getCategories']?.[0].id
         if (id) {
+          console.log('3', id)
           redirect(`/categories/${id}`)
         }
       } else {
+        console.log('4', id)
         productList = await getProductList(ctx, { categoryIds: [id] })
       }
     } catch (err) {
+      console.log('err', err)
       error({
         statusCode: 404,
         message: 'Page was not found',
