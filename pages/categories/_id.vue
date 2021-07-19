@@ -38,26 +38,15 @@ export default {
   emits: ['selected:category'],
   async asyncData(ctx) {
     const {
-      store, route, redirect, error,
+      route, error,
     } = ctx
     let productList
-    let id = route.params?.id
+    const id = route.params?.id
     try {
-      console.log('1', id)
-      // await store.dispatch('categories/loadCategories')
-      // if (!(id || id === 0)) {
-      //   console.log('2', id)
-      //   id = store.getters['categories/getCategories']?.[0].id
-      //   if (id) {
-      //     console.log('3', id)
-      //     redirect(`/categories/${id}`)
-      //   }
-      // } else {
-      //   console.log('4', id)
+      if (id) {
         productList = await getProductList(ctx, { categoryIds: [id] })
-      // }
+      }
     } catch (err) {
-      console.log('err', err)
       error({
         statusCode: 404,
         message: 'Page was not found',
@@ -88,7 +77,7 @@ export default {
     },
   },
   mounted() {
-    this.$emit('selected:category', this.categoryId)
+    // this.$emit('selected:category', this.categoryId)
   },
 }
 </script>

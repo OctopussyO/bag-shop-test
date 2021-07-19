@@ -42,19 +42,14 @@ import Sorter from '@/components/Sorter.vue'
 export default {
   components: { Sorter },
   async asyncData({
-    store, route, router, error,
+    store, error, route, redirect,
   }) {
     try {
-      console.log('kkek')
       await store.dispatch('categories/loadCategories')
-      // if (!route.params?.id) {
-      //   const startId = store.getters['categories/getCategories']?.[0].id
-      //   console.log('1', startId)
-      //   if (!(startId && startId === 0)) {
-      //     console.log('2')
-      //     router.push(`/categories/${startId}`)
-      //   }
-      // }
+      const { id } = route.params
+      if (!id && id !== 0) {
+        redirect(`/categories/${store.getters['categories/getCategories'][0].id}`)
+      }
     } catch (err) {
       error({
         statusCode: 404,
@@ -83,29 +78,15 @@ export default {
       categoriesList: 'categories/getCategories',
     }),
   },
-  created() {
-    console.log('route', this.$route.params?.id)
-    const id = this.$route.params?.id
-    if (!id && id !== 0) {
-      this.$router.push(`/categories/${this.categoriesList[0].id}`)
-    }
-  },
   methods: {
     ...mapActions({
       loadCategories: 'categories/loadCategories',
     }),
     checkSelectedCategory(id) {
       console.log('check', id)
-      // if (!(id || id === 0)) {
-        // if (!id === this.categoryId) {
-        //   this.categoryId = id
-        //   this.$router.push(`/categories/${this.categoriesList[0].id}`)
-        // }
-
-        if (!(id || id === 0)) {
-          this.$router.push(`/categories/${this.categoriesList[0].id}`)
-        }
-      // }
+      if (!(id || id === 0)) {
+        this.$router.push(`/categories/${this.categoriesList[0].id}`)
+      }
     },
   },
 }
