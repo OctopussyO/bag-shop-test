@@ -97,8 +97,12 @@ export default {
     checkSelectedCategory(id) {
       console.log('check', id)
       // if (!(id || id === 0)) {
-        if (!id === this.categoryId) {
-          this.categoryId = id
+        // if (!id === this.categoryId) {
+        //   this.categoryId = id
+        //   this.$router.push(`/categories/${this.categoriesList[0].id}`)
+        // }
+
+        if (!(id || id === 0)) {
           this.$router.push(`/categories/${this.categoriesList[0].id}`)
         }
       // }
