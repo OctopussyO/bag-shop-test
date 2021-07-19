@@ -35,22 +35,20 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 import { SortTypeEnum } from '@/assets/js/constants'
 import Sorter from '@/components/Sorter.vue'
 
 export default {
   components: { Sorter },
   async asyncData({
-    store, route, router, error,
+    store, error, route, redirect,
   }) {
     try {
       await store.dispatch('categories/loadCategories')
-      if (!route.params?.id) {
-        const startId = store.getters['categories/getCategories']?.[0].id
-        if (!(startId || startId === 0)) {
-          router.push(`/categories/${startId}`)
-        }
+      const { id } = route.params
+      if (!id && id !== 0) {
+        redirect(`/categories/${store.getters['categories/getCategories'][0].id}`)
       }
     } catch (err) {
       error({
@@ -72,6 +70,7 @@ export default {
         },
       ],
       selectedSortType: SortTypeEnum.ByPrice,
+      categoryId: null,
     }
   },
   computed: {
@@ -80,9 +79,6 @@ export default {
     }),
   },
   methods: {
-    ...mapActions({
-      loadCategories: 'categories/loadCategories',
-    }),
     checkSelectedCategory(id) {
       if (!(id || id === 0)) {
         this.$router.push(`/categories/${this.categoriesList[0].id}`)

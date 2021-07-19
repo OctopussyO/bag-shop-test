@@ -25,14 +25,16 @@
     <main :class="$style.content">
       <Nuxt />
     </main>
-    <cart-modal
-      v-show="isCartOpen"
-      ref="cartModal"
-      v-model="isCartOpen"
-      :data="cartItems"
-      @remove-item="removeItemFromCart"
-      @order-sent="clearCart"
-    />
+    <transition name="slide-fade">
+      <cart-modal
+        v-show="isCartOpen"
+        ref="cartModal"
+        v-model="isCartOpen"
+        :data="cartItems"
+        @remove-item="removeItemFromCart"
+        @order-sent="clearCart"
+      />
+    </transition>
   </div>
 </template>
 
@@ -138,5 +140,20 @@ $header-height: 4rem;
 .cartIcon {
   width: 2rem;
   height: 2rem;
+}
+</style>
+
+<style scoped>
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .3s ease;
+}
+.slide-fade-enter,
+.slide-fade-leave-to,
+.slide-fade-leave-active {
+  transform: translateX(10px);
+  opacity: 0;
 }
 </style>
