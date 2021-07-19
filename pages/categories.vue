@@ -41,9 +41,13 @@ import Sorter from '@/components/Sorter.vue'
 
 export default {
   components: { Sorter },
-  asyncData({ store, error }) {
+  async asyncData({ store, router, error }) {
     try {
-      store.dispatch('categories/loadCategories')
+      await store.dispatch('categories/loadCategories')
+      const startId = store.getters['categories/getCategories']?.[0].id
+      if (!(startId || startId === 0)) {
+        router.push(`/categories/${startId}`)
+      }
     } catch (err) {
       error({
         statusCode: 404,
