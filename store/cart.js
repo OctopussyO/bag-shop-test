@@ -30,6 +30,10 @@ export const mutations = {
       updateLocalStorage(CART_KEY, state.cartItems)
     }
   },
+  clearCart(state) {
+    state.cartItems = null
+    updateLocalStorage(CART_KEY, state.cartItems)
+  },
 }
 
 export const actions = {
@@ -43,10 +47,13 @@ export const actions = {
       commit('setCartItems', items)
     }
   },
-  addItemToCart({ commit }, data) { // Здесь могло бы быть обращение к апи, поэтому action
+  addItemToCart({ commit }, data) { // Здесь могло бы быть обращение к api, поэтому action
     commit('addItemToCart', data)
   },
   removeItemFromCart({ commit }, data) {
     commit('removeItemFromCart', data)
+  },
+  clearCart({ commit }) {
+    commit('clearCart')
   },
 }

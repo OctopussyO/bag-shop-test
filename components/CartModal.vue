@@ -16,7 +16,19 @@
         </button>
       </div>
       <template v-if="formSent">
-        YYYEAH
+        <div :class="$style.formSentBlock">
+          <img
+            src="~/static/ok-hand-emoji.png"
+            alt="Эмоджи 'ок'"
+            :class="$style.formSentImage"
+          >
+          <h3 :class="$style.formSentTitle">
+            Заявка успешно отправлена
+          </h3>
+          <p :class="$style.formSentText">
+            Вскоре наш менеджер свяжется с Вами
+          </p>
+        </div>
       </template>
       <template v-else>
         <template v-if="data && data.length">
@@ -34,7 +46,13 @@
               @click:delete="$emit('remove-item', item)"
             />
           </div>
-          <order-form />
+          <h3 :class="$style.subtitle">
+            Оформить заказ
+          </h3>
+          <order-form
+            ref="formRef"
+            @submit="handleSubmit"
+          />
         </template>
         <template v-else>
           <p :class="$style.paragraph">
@@ -70,7 +88,7 @@ export default {
       default: () => [],
     },
   },
-  emits: ['input', 'close', 'remove-item'],
+  emits: ['input', 'close', 'remove-item', 'order-sent'],
   data() {
     return {
       categoryId: null,
@@ -93,6 +111,12 @@ export default {
       this.$emit('close')
       this.visibility = false
       this.formSent = false
+    },
+    handleSubmit() {
+      // когда будет бэк -- сбрасывать поля после успешной отправки формы
+      this.$refs.formRef.reset()
+      this.$emit('order-sent')
+      this.formSent = true
     },
   },
 }
@@ -177,26 +201,6 @@ export default {
   }
 }
 
-// .submitBtn {
-//   width: 100%;
-//   padding: .9rem;
-//   margin-top: 1.5rem;
-//   background-color: $text-color;
-//   border-radius: .5rem;
-//   border: none;
-//   outline: none;
-//   color: #FFF;
-//   font-family: $PT-Sans;
-//   font-size: 1rem;
-//   line-height: 1.25;
-//   cursor: pointer;
-//   @include transition;
-
-//   &:hover {
-//     background-color: $surface-dark-color;
-//   }
-// }
-
 .paragraph {
   margin-top: 0;
   margin-bottom: 0;
@@ -204,5 +208,38 @@ export default {
   font-family: $PT-Sans;
   font-size: 1.35rem;
   line-height: 1.3;
+}
+
+.formSentBlock {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.formSentImage {
+  width: 5rem;
+  height: 5rem;
+  object-fit: contain;
+  object-position: center;
+}
+
+.formSentTitle {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  color: $text-color;
+  font-family: $PT-Sans;
+  font-size: 1.5rem;
+  line-height: 1.3;
+}
+
+.formSentText {
+  margin-top: .1rem;
+  margin-bottom: 0;
+  color: $text-accented-color;
+  font-family: $PT-Sans;
+  font-size: 1rem;
+  line-height: 1.25;
 }
 </style>

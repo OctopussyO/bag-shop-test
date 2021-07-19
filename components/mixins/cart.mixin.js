@@ -12,19 +12,11 @@ export default {
       loadCart: 'cart/loadCart',
       addItemToCart: 'cart/addItemToCart',
       removeItemFromCart: 'cart/removeItemFromCart',
+      clearCart: 'cart/clearCart',
     }),
-    addItem(item) {
-      this.addItemToCart(item)
-      this.loadCart()
-    },
-    removeItem(item) {
-      this.removeItemFromCart(item)
-      this.loadCart()
-    },
     isInCart(id) {
       if (!this.cartItems) { return false }
       return some(this.cartItems, (item) => item.id === id)
     },
-
   },
 }

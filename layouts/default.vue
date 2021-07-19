@@ -30,7 +30,8 @@
       ref="cartModal"
       v-model="isCartOpen"
       :data="cartItems"
-      @remove-item="removeItem"
+      @remove-item="removeItemFromCart"
+      @order-sent="clearCart"
     />
   </div>
 </template>

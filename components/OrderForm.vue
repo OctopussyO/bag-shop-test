@@ -96,13 +96,11 @@ export default {
     },
   },
   created() {
-    forEach(this.fields, (field) => {
-      this.$set(this.data, field.key, null)
-    })
+    this.reset()
   },
   methods: {
     submit() {
-      this.$emit('submit', this.$refs.formRef.elements, this.data)
+      this.$emit('submit', this.data)
     },
     handleMaskedInput(val, key) {
       this.$set(this.data, key, conformToMask(
@@ -113,6 +111,11 @@ export default {
     },
     handleInput(e, key) {
       this.$set(this.data, key, e.srcElement?.value)
+    },
+    reset() {
+      forEach(this.fields, (field) => {
+        this.$set(this.data, field.key, null)
+      })
     },
   },
 }
