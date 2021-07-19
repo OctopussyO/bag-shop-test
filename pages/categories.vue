@@ -75,6 +75,7 @@ export default {
         },
       ],
       selectedSortType: SortTypeEnum.ByPrice,
+      categoryId: null,
     }
   },
   computed: {
@@ -82,15 +83,25 @@ export default {
       categoriesList: 'categories/getCategories',
     }),
   },
+  created() {
+    console.log('route', this.$route.params?.id)
+    const id = this.$route.params?.id
+    if (!id && id !== 0) {
+      this.$router.push(`/categories/${this.categoriesList[0].id}`)
+    }
+  },
   methods: {
     ...mapActions({
       loadCategories: 'categories/loadCategories',
     }),
     checkSelectedCategory(id) {
       console.log('check', id)
-      if (!(id || id === 0)) {
-        this.$router.push(`/categories/${this.categoriesList[0].id}`)
-      }
+      // if (!(id || id === 0)) {
+        if (!id === this.categoryId) {
+          this.categoryId = id
+          this.$router.push(`/categories/${this.categoriesList[0].id}`)
+        }
+      // }
     },
   },
 }
