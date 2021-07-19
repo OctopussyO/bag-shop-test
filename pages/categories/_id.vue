@@ -37,11 +37,19 @@ export default {
   },
   emits: ['selected:category'],
   async asyncData(ctx) {
-    const { route, error } = ctx
-    const id = route.params?.id
+    const {
+      store, route, redirect, error,
+    } = ctx
     let productList
+    let id = route.params?.id
     try {
-      if (id) {
+      if (!(id || id === 0)) {
+        await store.dispatch('categories/loadCategories')
+        id = store.getters['categories/getCategories']?.[0].id
+        if (id) {
+          redirect(`/categories/${id}`)
+        }
+      } else {
         productList = await getProductList(ctx, { categoryIds: [id] })
       }
     } catch (err) {
