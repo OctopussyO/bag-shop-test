@@ -1,6 +1,10 @@
 <template>
   <div :class="$style.root">
-    <div :class="$style.cardList">
+    <transition-group
+      name="fade"
+      tag="div"
+      :class="$style.cardList"
+    >
       <product-card
         v-for="item in sortedProductsList"
         :key="item.id"
@@ -9,7 +13,7 @@
         @click:add="addItemToCart(item)"
         @click:delete="removeItemFromCart(item)"
       />
-    </div>
+    </transition-group>
   </div>
 </template>
 
@@ -97,5 +101,17 @@ export default {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
   gap: 1rem;
+}
+</style>
+
+<style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s ease;
+}
+
+.fade-enter,
+.fade-leave-to,
+.fade-leave-active {
+  opacity: 0;
 }
 </style>

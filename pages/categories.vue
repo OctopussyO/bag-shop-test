@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 import { SortTypeEnum } from '@/assets/js/constants'
 import Sorter from '@/components/Sorter.vue'
 
@@ -79,11 +79,7 @@ export default {
     }),
   },
   methods: {
-    ...mapActions({
-      loadCategories: 'categories/loadCategories',
-    }),
     checkSelectedCategory(id) {
-      console.log('check', id)
       if (!(id || id === 0)) {
         this.$router.push(`/categories/${this.categoriesList[0].id}`)
       }

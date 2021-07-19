@@ -18,23 +18,25 @@
         }]"
       />
     </button>
-    <ul
-      v-show="isListShown"
-      :class="[$style.optionsList, 'list-clear']"
-    >
-      <li
-        v-for="opt in options"
-        :key="opt.key"
-        :class="[$style.optionItem]"
+    <transition name="slide-fade">
+      <ul
+        v-show="isListShown"
+        :class="[$style.optionsList, 'list-clear']"
       >
-        <button
-          :class="[$style.optionButton, 'button-clear']"
-          @click="setSelected(opt.key)"
+        <li
+          v-for="opt in options"
+          :key="opt.key"
+          :class="[$style.optionItem]"
         >
-          По {{ opt.label }}
-        </button>
-      </li>
-    </ul>
+          <button
+            :class="[$style.optionButton, 'button-clear']"
+            @click="setSelected(opt.key)"
+          >
+            По {{ opt.label }}
+          </button>
+        </li>
+      </ul>
+    </transition>
   </div>
 </template>
 
@@ -169,5 +171,20 @@ export default {
 
 .iconRotated {
   transform: rotate(-180deg);
+}
+</style>
+
+<style scoped>
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .3s ease;
+}
+.slide-fade-enter,
+.slide-fade-leave-to,
+.slide-fade-leave-active {
+  transform: translateY(90%);
+  opacity: 0;
 }
 </style>
