@@ -41,12 +41,16 @@ import Sorter from '@/components/Sorter.vue'
 
 export default {
   components: { Sorter },
-  async asyncData({ store, router, error }) {
+  async asyncData({
+    store, route, router, error,
+  }) {
     try {
       await store.dispatch('categories/loadCategories')
-      const startId = store.getters['categories/getCategories']?.[0].id
-      if (!(startId || startId === 0)) {
-        router.push(`/categories/${startId}`)
+      if (!route.params?.id) {
+        const startId = store.getters['categories/getCategories']?.[0].id
+        if (!(startId || startId === 0)) {
+          router.push(`/categories/${startId}`)
+        }
       }
     } catch (err) {
       error({
