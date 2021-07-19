@@ -28,7 +28,7 @@ Cтраница вывода списка товаров с возможност
 [![Vue.js](https://img.shields.io/badge/-Vue.js-464646??style=flat-square&logo=vue.js)](https://ru.vuejs.org/)
 [![Vuex](https://img.shields.io/badge/-Vuex-464646??style=flat-square&logo=vuex.js)](https://vuex.vuejs.org/)
 [![Nuxt.js](https://img.shields.io/badge/-Nuxt.js-464646??style=flat-square&logo=nuxt.js)](https://https://nuxtjs.org/)
-<!-- CSS-Modules -->
+[![Axios](https://img.shields.io/badge/-Axios-464646??style=flat-square&logo=axios.js)](https://www.npmjs.com/package/axios)
 [![SCSS](https://img.shields.io/badge/-SCSS-464646??style=flat-square&logo=scss)](https://https://sass-scss.ru/)
 [![CSS](https://img.shields.io/badge/-CSS-464646??style=flat-square&logo=css3)](https://www.w3.org/Style/CSS/specs.ru.html)
 [![HTML](https://img.shields.io/badge/-HTML-464646??style=flat-square&logo=HTML5)](https://www.w3.org/TR/html52/introduction.html#introduction)
