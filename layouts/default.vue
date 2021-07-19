@@ -92,6 +92,7 @@ $header-height: 4rem;
   height: 100%;
   min-height: inherit;
   padding: calc(#{$header-height} + 2rem) $page-left-right-padding 1rem;
+  background-color: $surface-extra-light-color;
 }
 
 .logoLink {
