@@ -1,7 +1,14 @@
 <template>
-  <Tutorial/>
+  <div>
+    kekkekeke
+  </div>
 </template>
 
 <script>
-export default {}
+export default {
+  layout: 'default',
+  asyncData({ redirect }) {
+    redirect('/categories')
+  },
+}
 </script>
