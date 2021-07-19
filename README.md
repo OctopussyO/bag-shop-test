@@ -1,69 +1,60 @@
-# bag-shop
+# Bag Shop
 
-## Build Setup
+<!-- <img align="right" width="400px" src="https://raw.githubusercontent.com/OctopussyO/news-explorer-frontend/master/public/preview.png" alt="Иллюстрация к проекту"> -->
 
+Cтраница вывода списка товаров с возможностью сортировки товаров, добавления/удаления товаров в корзине.
+
+<!-- Ознакомиться с приложением можно по [ссылке](https://wow-news.nomoredomains.club/). -->
+
+### Функциональность
+
+1. Первая страница проекта представляет из себя список товаров первой категории из имеющихся и выбранной первой категорией в списке (данные должны быть получены и отрисованы на сервере).
+2. Переключение между категориями, при этом список товаров обновляется в соответствии с выбранной категорией.
+3. Добавление в корзину и удаление из нее любого из представленных товаров, посредством нажатия соответствующего триггера на карточке товара, при этом иконка меняет свое состояния в зависимости от наличия данного товара в корзине.
+4. Открытие корзины в модальной панели по клику соответствующего триггера в шапке сайта.
+5. Просмотр пустой корзины.
+6. Просмотр корзины с товарами.
+7. Удаление из корзины товаров из списка по клику соответствующего триггера на карточке товара в корзине.
+8. Отправка заявки на исполнение заказа с валидацией и масками для соответствующих полей.
+9. Отображение блока удачной отправки заявки.
+10. Удаление товаров из корзины после удачной отправки заявки.
+
+- Каждая категория реализована в отдельный странице посредствам Nested Routes.
+- Содержимое корзины будет сохраняться, даже если пользователь закроет вкладку и снова зайдет на сайт.
+
+### Используемый стек
+
+[![JavaScript](https://img.shields.io/badge/-JavaScript-464646??style=flat-square&logo=javascript)](https://www.javascript.com/)
+[![Vue.js](https://img.shields.io/badge/-Vue.js-464646??style=flat-square&logo=vue.js)](https://ru.vuejs.org/)
+[![Vuex](https://img.shields.io/badge/-Vuex-464646??style=flat-square&logo=vuex.js)](https://vuex.vuejs.org/)
+[![Nuxt.js](https://img.shields.io/badge/-Nuxt.js-464646??style=flat-square&logo=nuxt.js)](https://https://nuxtjs.org/)
+<!-- CSS-Modules -->
+[![SCSS](https://img.shields.io/badge/-SCSS-464646??style=flat-square&logo=scss)](https://https://sass-scss.ru/)
+[![CSS](https://img.shields.io/badge/-CSS-464646??style=flat-square&logo=css3)](https://www.w3.org/Style/CSS/specs.ru.html)
+[![HTML](https://img.shields.io/badge/-HTML-464646??style=flat-square&logo=HTML5)](https://www.w3.org/TR/html52/introduction.html#introduction)
+[![Netlify](https://img.shields.io/badge/-Netlify-464646??style=flat-square&logo=netlify)](https://https://www.netlify.com/)
+
+### Инструкция по разрёртыванию проекта:
 ```bash
-# install dependencies
+# клонирование репозитория
+$ git clone https://github.com/OctopussyO/news-explorer-frontend.git
+
+# установка зависимостей
 $ npm install
 
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
+# запуск приложения в режиме разработчика
 $ npm run start
 
-# generate static project
-$ npm run generate
+# сборка проекта
+$ npm run build
 ```
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+### Планы по доработке проекта:
 
-## Special Directories
-
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
-
-### `assets`
-
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
-
-### `components`
-
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
-
-### `layouts`
-
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
-
-
-### `pages`
-
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
-
-### `plugins`
-
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
-
-### `static`
-
-This directory contains your static files. Each file inside this directory is mapped to `/`.
-
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
-
-### `store`
-
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+1. Сверстать страницу ошибки.
+2. Добавить возможность поставить "звёздочку" товару.
+3. Добавить попапы с подтверждением при удалении товара из корзины.
+4. Доработать компонент формы.
+5. Выделить компонент поля ввода с маской.
+6. Сделать адаптивную версию для мобильных устройств.
+7. Анимировать действия пользователя: открытие панели корзины, смена списка товаров и т.п.
