@@ -63,6 +63,7 @@ export default {
   },
   computed: {
     sortedProductsList() {
+      if (!this.productList) { return [] }
       switch (this.sortType) {
         case SortTypeEnum.ByPrice:
           return [...this.productList].sort((a, b) => a.price - b.price)
